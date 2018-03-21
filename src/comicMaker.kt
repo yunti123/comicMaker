@@ -8,7 +8,17 @@ var next : String = ""
 
     fun main(args: Array<String>) {
 
-        println("Hi There")
+        //Eğer <img ilkse gg
+        //loopa sok
+        //ilk yorum satırındaki işlemle loopdan çıkar
+        //belki klasöre ayır
+        //belki pdf yap
+        //üşenirsen bırak öyle lanet girsin
+        //Bide aq kodunu esnek yap headerı parametre olarak sışardan al
+        //pathi dışardan al
+        //En son o lanet comemntleri unutma
+        //Cu inş
+
 
         val header  : String = "http://www.omgbeaupeep.com/comics/mangas/Deadpool/"
         val token   : String = "mangas/Deadpool/"
