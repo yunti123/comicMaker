@@ -7,6 +7,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="KotlinJavaRuntime (2)" level="project" />
+    <orderEntry type="library" exported="" name="KotlinJavaRuntime (2)" level="project" />
+    <orderEntry type="library" exported="" name="com.itextpdf:itextpdf:5.5.13" level="project" />
   </component>
 </module>

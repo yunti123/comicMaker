@@ -5,16 +5,11 @@ import java.util.*
 var sayi : String = ""
 var sayfa: String = ""
 var next : String = ""
+var isLast: Boolean = false
 
     fun main(args: Array<String>) {
 
-        //Eğer <img ilkse gg
-        //loopa sok
-        //ilk yorum satırındaki işlemle loopdan çıkar
-        //belki klasöre ayır
-        //belki pdf yap
-        //üşenirsen bırak öyle lanet girsin
-        //Bide aq kodunu esnek yap headerı parametre olarak sışardan al
+        //Bide aq kodunu esnek yap headerı parametre olarak dışardan al
         //pathi dışardan al
         //En son o lanet comemntleri unutma
         //Cu inş
@@ -24,33 +19,71 @@ var next : String = ""
         val token   : String = "mangas/Deadpool/"
         val path    : String = "/home/yunti/Desktop/yedek/deneme/"
         val initUrl : String = "http://www.omgbeaupeep.com/comics/"
-        val init    : String = "Deadpool/016/2/"
-        var dw: DownloadImg
+        val init    : String = "Deadpool/016/"
 
-        var fp = srcFetch(initUrl+init,header,token)
-        if (!fp.equals("bos")){
-            //println(next)
-            dw = DownloadImg(fp,path,sayi + "-" + sayfa);
-            var temp = initUrl + next
-            println(temp)
-            fp = srcFetch(temp,header,token)
-            dw = DownloadImg(fp,path,sayi + "-" + sayfa);
+        var dw      : DownloadImg = DownloadImg(path)
+        var fp      : String = ""
+        var temp    : String = ""
+        var back    : Int
+
+        fp = srcFetch(initUrl+init,header,token)
+
+        dw.SaveFromSource(fp,sayi+"-"+sayfa)
+        back = sayi.toInt()
+
+
+        do{
             temp = initUrl + next
-            println(temp)
-        }
-        else
-            println("GG")
 
+
+            if (next == null || next.equals("")){
+                println("Sonuncaya geldin veya sonunu yakalayamadın")
+                break
+            }
+
+            fp = srcFetch(temp,header,token)
+
+            if(fp.equals("bos")){
+                println("linke ulasilamadi!!")
+                break
+            }
+
+            if (back != sayi.toInt()){
+                back = sayi.toInt()
+                dw.newPdf()
+            }
+
+            println("sayi: $sayi sayfa: $sayfa")
+            dw.SaveFromSource(fp,sayi + "-" + sayfa)
+
+
+        }while (!isLast)
+
+        dw.newPdf()
+        println("GG!!")
     }
 
     fun parser(prm: String, token: String): String {
+
         var a: String = prm.split(token)[1]
         var b = a.subSequence(0, a.indexOf("\"")).toString()
         b = b.replace(" ", "%20")
         var say: String = b.subSequence(0, 3).toString()
         var sayf: String = b.substring(b.indexOf("free") + 5, b.indexOf(".jpg"))
+
+        if(sayf.equals(""))
+            sayf = "000"
+
+        if(!prm.contains("href")){
+            sayi = say
+            sayfa = sayf
+            isLast = true
+            return b
+        }
+
+
         var a2 : String = prm.substring(prm.indexOf("href")+6,prm.indexOf("><img")-1)
-        println(a2)
+
         next = a2
         sayi = say
         sayfa = sayf
